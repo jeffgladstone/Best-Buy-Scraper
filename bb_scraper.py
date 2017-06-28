@@ -13,6 +13,7 @@
 # Initial imports
 from lxml import html
 import requests
+import datetime
 
 # The headers line prevents the 403 error on the request --- some websites have security that require this headers line
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -28,6 +29,7 @@ items += tree.xpath('//h3[@class="feature-ellipsis"]/a/text()')
 prices = filter(lambda k: '$' not in k, prices)
 items = filter(lambda k: '% Off' not in k, items)
 items = filter(lambda k: 'Merchandise' not in k, items)
+items = filter(lambda k: 'Save' not in k, items)
 
 # Combine the two lists into one list of tuples. product[0] = item, product[1] = price. Both are str values
 products = list(zip(items, prices))
@@ -40,8 +42,11 @@ with open("bb_dotd.xml", "w") as f:
 		f.write("\t<price>" + product[1] + "</price>\n")
 		f.write("</product>\n")
 
+# Initializes variable for today's date and time
+now = datetime.datetime.now()
+now = now.strftime("%A, %B %d, %Y")
 # User interaction
-print("Welcome to Best Buy's 'Deals of the Day'.")
+print("Welcome to Best Buy's 'Deals of the Day' for " + now + '.')
 wallet = float(input('Enter the amount of money you can spend at Best Buy today:'))
 wallet = '{0:.2f}'.format(wallet)   #str value
 print('Your wallet holds $' + wallet + '. You can afford:')
