@@ -30,6 +30,7 @@ prices = filter(lambda k: '$' not in k, prices)
 items = filter(lambda k: '% Off' not in k, items)
 items = filter(lambda k: 'Merchandise' not in k, items)
 items = filter(lambda k: 'Save' not in k, items)
+items = filter(lambda k: 'Products' not in k, items)
 
 # Combine the two lists into one list of tuples. product[0] = item, product[1] = price. Both are str values
 products = list(zip(items, prices))
@@ -47,9 +48,9 @@ now = datetime.datetime.now()
 now = now.strftime("%A, %B %d, %Y")
 # User interaction
 print("Welcome to Best Buy's 'Deals of the Day' for " + now + '.')
-wallet = float(input('Enter the amount of money you can spend at Best Buy today:'))
+wallet = float(input('Enter the amount of money you can spend at Best Buy today:\n'))
 wallet = '{0:.2f}'.format(wallet)   #str value
-print('Your wallet holds $' + wallet + '. You can afford:')
+print('\nYour wallet holds $' + wallet + '. You can afford:')
 for product in products:
 	if (float(product[1]) <= float(wallet)):
 		print('- ' + product[0] + ' [' + product[1] + ']')
