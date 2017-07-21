@@ -31,6 +31,7 @@ items = filter(lambda k: '% Off' not in k, items)
 items = filter(lambda k: 'Merchandise' not in k, items)
 items = filter(lambda k: 'Save' not in k, items)
 items = filter(lambda k: 'Products' not in k, items)
+items = filter(lambda k: 'Gift Card' not in k, items)
 
 # Combine the two lists into one list of tuples. product[0] = item, product[1] = price. Both are str values
 products = list(zip(items, prices))
